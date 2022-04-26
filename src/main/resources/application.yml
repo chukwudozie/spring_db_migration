@@ -1,0 +1,39 @@
+spring:
+#  profiles:
+#    active: local
+  jpa:
+    database: mysql # Configuration to use MySQL
+    hibernate:
+      ddl-auto: validate
+    defer-datasource-initialization: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect #Configuration to use MySQL
+        show_sql: true
+        format_sql: true
+  liquibase:
+    change-log: db/changelog/changelog-master.xml
+  h2:
+    console:
+      enabled: true
+      #Configurations to make H2 compatible with MySQL
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    username: sa
+    password: password
+
+
+# configuration to show the bind parameters of the SQL(?)
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+
+#spring.jpa.properties.hibernate.show_sql=true
+#spring.jpa.properties.hibernate.format_sql=true
+#spring.h2.console.enabled=true
+#logging.level.org.hibernate.type.descriptor.sql=trace
+

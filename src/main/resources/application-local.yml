@@ -1,0 +1,19 @@
+#spring.datasource.username=emeka
+#spring.datasource.password=1994saha
+#spring.datasource.url=jdbc:mysql://127.0.0.1:3306/bookdb?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+#spring.jpa.hibernate.ddl-auto=update
+#spring.jpa.database=mysql
+
+spring:
+  datasource:
+    username: bookuser
+    password: password
+    url: jdbc:mysql://127.0.0.1:3306/bookdb?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+  liquibase:
+    user: bookadmin
+    password: password
+
+  sql:
+    init:
+      mode: always # This makes the initialization script to be run multiple times to always create the schema
+      #Spring init mode only works for embedded databases
