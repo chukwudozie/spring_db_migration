@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Profile({"local", "default"}) // This data initialization will only happen for local and default profiles
+@Profile({"local", "default","dev"}) // This data initialization will only happen for local and default profiles
 @Component
 public class DataInitializer implements CommandLineRunner {
 
