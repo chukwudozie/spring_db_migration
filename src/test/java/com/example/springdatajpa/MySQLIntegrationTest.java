@@ -4,6 +4,7 @@ import com.example.springdatajpa.domain.AuthorUuid;
 import com.example.springdatajpa.domain.BookNatural;
 import com.example.springdatajpa.domain.BookUuid;
 import com.example.springdatajpa.domain.composite.AuthorComposite;
+import com.example.springdatajpa.domain.composite.AuthorEmbedded;
 import com.example.springdatajpa.domain.composite.NamedId;
 import com.example.springdatajpa.repositories.*;
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,9 @@ public class MySQLIntegrationTest {
     private BooKNaturalRepository booKNaturalRepository;
     @Autowired
     private AuthorCompositeRepository authorCompositeRepository;
+
+    @Autowired
+    private AuthorEmbedRepository authorEmbedRepository;
 
     @Test
     public void testMySQL(){
@@ -97,6 +101,15 @@ public class MySQLIntegrationTest {
         assertThat(saved).isNotNull();
         AuthorComposite fetched = authorCompositeRepository.getById(namedId);
         assertThat(fetched).isNotNull();
+    }
 
+    @Test
+    public void authorEmbedTest(){
+        NamedId namedId = new NamedId("Donald", "Trump");
+        AuthorEmbedded authorEmbedded = new AuthorEmbedded(namedId);
+        AuthorEmbedded saved = authorEmbedRepository.save(authorEmbedded);
+        AuthorEmbedded fetch = authorEmbedRepository.getById(namedId);
+        assertThat(saved).isNotNull();
+        assertThat(fetch).isNotNull();
     }
 }
