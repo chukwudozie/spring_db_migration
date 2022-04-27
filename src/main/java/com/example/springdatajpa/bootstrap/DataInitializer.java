@@ -1,8 +1,9 @@
 package com.example.springdatajpa.bootstrap;
 
+import com.example.springdatajpa.domain.AuthorUuid;
 import com.example.springdatajpa.domain.Book;
+import com.example.springdatajpa.repositories.AuthorUuidRepository;
 import com.example.springdatajpa.repositories.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -14,9 +15,11 @@ import java.util.List;
 public class DataInitializer implements CommandLineRunner {
 
     private final BookRepository bookRepository;
+    private final AuthorUuidRepository authorUuidRepository;
 
-    public DataInitializer(BookRepository bookRepository) {
+    public DataInitializer(BookRepository bookRepository, AuthorUuidRepository authorUuidRepository) {
         this.bookRepository = bookRepository;
+        this.authorUuidRepository = authorUuidRepository;
     }
 
     @Override
@@ -41,6 +44,12 @@ public class DataInitializer implements CommandLineRunner {
             System.out.println("Saved Number of Pages: "+savedBooks.getNumberOfPages());
             System.out.println("=========================================");
         });
+
+        AuthorUuid authorUuid = new AuthorUuid();
+        authorUuid.setFirstName("Emeka");
+        authorUuid.setLastName("Chukwudozie");
+        AuthorUuid savedAuthorUuid = authorUuidRepository.save(authorUuid);
+        System.out.println("Saved Author UUID : "+savedAuthorUuid.getId());
 
     }
 }
