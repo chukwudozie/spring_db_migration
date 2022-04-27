@@ -13,7 +13,7 @@ public class BookUuid {
     @GeneratedValue(generator = "uuid2")
     // this tells hibernate to use 4122 compliant UUID
     @GenericGenerator(name = "uuid2",strategy = "uuid2")
-    @Column(columnDefinition = "BINARY(16)", updatable = false, nullable = false)
+    @Column(columnDefinition = "VARBINARY(16)", updatable = false, nullable = false)
     private UUID id;
     private String title;
     private String isbn;
