@@ -3,10 +3,9 @@ package com.example.springdatajpa;
 import com.example.springdatajpa.domain.AuthorUuid;
 import com.example.springdatajpa.domain.BookNatural;
 import com.example.springdatajpa.domain.BookUuid;
-import com.example.springdatajpa.repositories.AuthorUuidRepository;
-import com.example.springdatajpa.repositories.BooKNaturalRepository;
-import com.example.springdatajpa.repositories.BookRepository;
-import com.example.springdatajpa.repositories.BookUuidRepository;
+import com.example.springdatajpa.domain.composite.AuthorComposite;
+import com.example.springdatajpa.domain.composite.NamedId;
+import com.example.springdatajpa.repositories.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -35,6 +34,8 @@ public class MySQLIntegrationTest {
     private AuthorUuidRepository authorUuidRepository;
     @Autowired
     private BooKNaturalRepository booKNaturalRepository;
+    @Autowired
+    private AuthorCompositeRepository authorCompositeRepository;
 
     @Test
     public void testMySQL(){
@@ -82,6 +83,19 @@ public class MySQLIntegrationTest {
         naturalBook.setTitle("Test title");
         booKNaturalRepository.save(naturalBook);
         BookNatural fetched = booKNaturalRepository.getById(naturalBook.getTitle());
+        assertThat(fetched).isNotNull();
+    }
+
+    @Test
+    public void testAuthorCompositeKey(){
+        NamedId namedId = new NamedId("Donald", "Trump");
+        AuthorComposite authorComposite = new AuthorComposite();
+        authorComposite.setFirstName(namedId.getFirstName());
+        authorComposite.setLastName(namedId.getLastName());
+        authorComposite.setCountry("Nigeria");
+        AuthorComposite saved = authorCompositeRepository.save(authorComposite);
+        assertThat(saved).isNotNull();
+        AuthorComposite fetched = authorCompositeRepository.getById(namedId);
         assertThat(fetched).isNotNull();
 
     }
