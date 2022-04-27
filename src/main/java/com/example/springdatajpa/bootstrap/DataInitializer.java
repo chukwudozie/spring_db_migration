@@ -2,8 +2,10 @@ package com.example.springdatajpa.bootstrap;
 
 import com.example.springdatajpa.domain.AuthorUuid;
 import com.example.springdatajpa.domain.Book;
+import com.example.springdatajpa.domain.BookUuid;
 import com.example.springdatajpa.repositories.AuthorUuidRepository;
 import com.example.springdatajpa.repositories.BookRepository;
+import com.example.springdatajpa.repositories.BookUuidRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -16,10 +18,13 @@ public class DataInitializer implements CommandLineRunner {
 
     private final BookRepository bookRepository;
     private final AuthorUuidRepository authorUuidRepository;
+    private final BookUuidRepository bookUuidRepository;
 
-    public DataInitializer(BookRepository bookRepository, AuthorUuidRepository authorUuidRepository) {
+    public DataInitializer(BookRepository bookRepository, AuthorUuidRepository authorUuidRepository,
+                           BookUuidRepository bookUuidRepository) {
         this.bookRepository = bookRepository;
         this.authorUuidRepository = authorUuidRepository;
+        this.bookUuidRepository = bookUuidRepository;
     }
 
     @Override
@@ -50,6 +55,10 @@ public class DataInitializer implements CommandLineRunner {
         authorUuid.setLastName("Chukwudozie");
         AuthorUuid savedAuthorUuid = authorUuidRepository.save(authorUuid);
         System.out.println("Saved Author UUID : "+savedAuthorUuid.getId());
+
+        BookUuid bookUuid = new BookUuid("New Book","123456","John Thompson",290);
+        BookUuid savedBook = bookUuidRepository.save(bookUuid);
+        System.out.println("Saved Book UUID : "+savedBook.getId());
 
     }
 }
