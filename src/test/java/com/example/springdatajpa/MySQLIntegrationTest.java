@@ -1,8 +1,10 @@
 package com.example.springdatajpa;
 
 import com.example.springdatajpa.domain.AuthorUuid;
+import com.example.springdatajpa.domain.BookNatural;
 import com.example.springdatajpa.domain.BookUuid;
 import com.example.springdatajpa.repositories.AuthorUuidRepository;
+import com.example.springdatajpa.repositories.BooKNaturalRepository;
 import com.example.springdatajpa.repositories.BookRepository;
 import com.example.springdatajpa.repositories.BookUuidRepository;
 import org.junit.jupiter.api.Test;
@@ -31,6 +33,8 @@ public class MySQLIntegrationTest {
      private BookUuidRepository bookUuidRepository;
     @Autowired
     private AuthorUuidRepository authorUuidRepository;
+    @Autowired
+    private BooKNaturalRepository booKNaturalRepository;
 
     @Test
     public void testMySQL(){
@@ -70,6 +74,15 @@ public class MySQLIntegrationTest {
         BookUuid bookById = bookUuidRepository.getById(savedBook.getId());
         assertThat(savedBook.getId()).isNotNull();
         assertEquals(bookById,savedBook);
+    }
+
+    @Test
+    public void bookNaturalTest(){
+        BookNatural naturalBook = new BookNatural();
+        naturalBook.setTitle("Test title");
+        booKNaturalRepository.save(naturalBook);
+        BookNatural fetched = booKNaturalRepository.getById(naturalBook.getTitle());
+        assertThat(fetched).isNotNull();
 
     }
 }
